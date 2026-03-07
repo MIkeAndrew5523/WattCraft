@@ -1,0 +1,25 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  /* Brand Color Palette — SKILLS.md section 1 */
+  --color-brand-navy: #0f172a;
+  --color-brand-slate: #334155;
+  --color-brand-amber: #f59e0b;
+  --color-brand-electric: #3b82f6;
+  --color-brand-offwhite: #f8fafc;
+
+  /* Font Stack — SKILLS.md section 1 */
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-block bg-brand-amber text-brand-navy font-semibold px-6 py-3 rounded-lg hover:opacity-90 transition-opacity;
+  }
+
+  .btn-secondary {
+    @apply inline-block border border-brand-slate text-brand-slate dark:text-slate-300 font-semibold px-6 py-3 rounded-lg hover:border-brand-electric hover:text-brand-electric transition-colors;
+  }
+}

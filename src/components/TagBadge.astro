@@ -1,0 +1,16 @@
+---
+// src/components/TagBadge.astro
+// Purpose: Colored badge for content categorization
+// Props: tag (string)
+const colorMap: Record<string, string> = {
+  'case-study':  'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200',
+  'opinion':     'bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-200',
+  'tutorial':    'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200',
+  'default':     'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300',
+}
+const { tag } = Astro.props;
+const color = colorMap[tag] ?? colorMap['default'];
+---
+<span class={`text-xs font-medium px-2.5 py-0.5 rounded-full ${color}`}>
+  {tag}
+</span>

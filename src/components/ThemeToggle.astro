@@ -1,0 +1,41 @@
+---
+// src/components/ThemeToggle.astro
+// Purpose: Dark/light mode toggle button with localStorage persistence
+---
+<button
+  id="theme-toggle"
+  type="button"
+  class="p-2 rounded-lg text-brand-slate dark:text-slate-300 hover:text-brand-amber transition-colors"
+  aria-label="Toggle dark mode"
+>
+  <svg id="icon-sun" class="w-5 h-5 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m8.66-13.66l-.71.71M4.05 19.95l-.71.71M21 12h-1M4 12H3m16.66 7.66l-.71-.71M4.05 4.05l-.71-.71M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+  </svg>
+  <svg id="icon-moon" class="w-5 h-5 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+  </svg>
+</button>
+
+<script>
+  const toggle = document.getElementById('theme-toggle');
+  const iconSun = document.getElementById('icon-sun');
+  const iconMoon = document.getElementById('icon-moon');
+
+  function applyTheme(dark) {
+    document.documentElement.classList.toggle('dark', dark);
+    iconSun.classList.toggle('hidden', !dark);
+    iconMoon.classList.toggle('hidden', dark);
+  }
+
+  // Initialize from localStorage or system preference
+  const stored = localStorage.getItem('theme');
+  const prefersDark = stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  applyTheme(prefersDark);
+
+  toggle.addEventListener('click', () => {
+    const isDark = document.documentElement.classList.toggle('dark');
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    iconSun.classList.toggle('hidden', !isDark);
+    iconMoon.classList.toggle('hidden', isDark);
+  });
+</script>

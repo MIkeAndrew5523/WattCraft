@@ -1,0 +1,15 @@
+---
+// src/components/Nav.astro
+// Purpose: Main site navigation
+import ThemeToggle from './ThemeToggle.astro';
+---
+<nav class="py-4 px-6 max-w-5xl mx-auto flex justify-between items-center">
+  <a href="/" class="font-bold text-brand-navy dark:text-white tracking-wide">ABRILIAM</a>
+  <div class="flex gap-6 text-sm items-center">
+    <a href="/portfolio" class="hover:text-brand-electric">Portfolio</a>
+    <a href="/blog" class="hover:text-brand-electric">Blog</a>
+    <a href="/about" class="hover:text-brand-electric">About</a>
+    <a href="/contact" class="hover:text-brand-electric">Contact</a>
+    <ThemeToggle />
+  </div>
+</nav>

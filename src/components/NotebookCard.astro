@@ -1,0 +1,29 @@
+---
+// src/components/NotebookCard.astro
+// Purpose: Displays a notebook project in the portfolio grid
+// Props: title, summary, tags, techStack, date, slug
+import TagBadge from './TagBadge.astro';
+
+interface Props {
+  title: string;
+  summary: string;
+  tags: string[];
+  techStack: string[];
+  date: string;
+  slug: string;
+}
+
+const { title, summary, tags, techStack, date, slug } = Astro.props;
+---
+<article class="rounded-xl border border-slate-200 dark:border-slate-700 p-6 hover:shadow-lg transition-shadow">
+  <div class="flex gap-2 flex-wrap mb-3">
+    {tags.map(tag => <TagBadge tag={tag} />)}
+  </div>
+  <h3 class="text-xl font-semibold mb-2">
+    <a href={`/portfolio/${slug}`} class="hover:text-brand-electric">{title}</a>
+  </h3>
+  <p class="text-sm text-slate-500 mb-4">{summary}</p>
+  <div class="flex gap-2 flex-wrap">
+    {techStack.map(tech => <span class="text-xs font-mono bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded">{tech}</span>)}
+  </div>
+</article>

@@ -1,0 +1,25 @@
+---
+// src/pages/portfolio/[slug].astro
+// Purpose: Individual notebook viewer page — rendered notebook + metadata
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const notebooks = await getCollection('notebooks');
+  return notebooks.map((notebook) => ({
+    params: { slug: notebook.slug },
+    props: { notebook },
+  }));
+}
+
+const { notebook } = Astro.props;
+const { Content } = await notebook.render();
+---
+<BaseLayout title={notebook.data.title} description={notebook.data.summary}>
+  <!-- TODO: Key findings box, rendered notebook HTML, tech stack tags -->
+  <article class="py-16 md:py-24 max-w-5xl mx-auto px-6">
+    <h1 class="text-4xl font-bold tracking-tight mb-4">{notebook.data.title}</h1>
+    <p class="text-slate-500 mb-8">{notebook.data.summary}</p>
+    <Content />
+  </article>
+</BaseLayout>

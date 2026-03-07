@@ -1,0 +1,21 @@
+---
+// src/components/KeyFindings.astro
+// Purpose: Non-technical summary callout inside notebook pages
+// Props: findings (string[])
+interface Props {
+  findings: string[];
+}
+
+const { findings } = Astro.props;
+---
+<div class="bg-amber-50 dark:bg-amber-950 border-l-4 border-brand-amber p-6 my-8 rounded-r-lg">
+  <h3 class="font-semibold text-brand-amber mb-3">Key Findings</h3>
+  <ul class="space-y-2">
+    {findings.map(f => (
+      <li class="flex gap-2 text-sm">
+        <span class="text-brand-amber mt-0.5">&rarr;</span>
+        <span>{f}</span>
+      </li>
+    ))}
+  </ul>
+</div>
