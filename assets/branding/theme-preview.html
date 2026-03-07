@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Abriliam Consulting — Theme Preview</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: #f1f5f9;
+      color: #1e293b;
+      padding: 2rem;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .subtitle {
+      text-align: center;
+      color: #64748b;
+      margin-bottom: 2rem;
+      font-size: 0.9rem;
+    }
+
+    /* Selection state */
+    .selected-banner {
+      text-align: center;
+      padding: 1rem;
+      background: #059669;
+      color: white;
+      font-weight: 600;
+      border-radius: 8px;
+      margin-bottom: 2rem;
+      display: none;
+      font-size: 1.1rem;
+    }
+    .selected-banner.visible { display: block; }
+
+    /* ---- SECTION HEADERS ---- */
+    .section-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin: 2.5rem 0 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid #e2e8f0;
+    }
+
+    /* ---- PALETTE GRID ---- */
+    .palette-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .palette-card {
+      border: 2px solid #e2e8f0;
+      border-radius: 12px;
+      overflow: hidden;
+      background: white;
+      cursor: pointer;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .palette-card:hover { border-color: #3b82f6; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+    .palette-card.selected { border-color: #059669; box-shadow: 0 0 0 3px rgba(5,150,105,0.3); }
+
+    .palette-header {
+      padding: 1rem 1.25rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .palette-header h3 { font-size: 1rem; font-weight: 600; }
+    .palette-check {
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      border: 2px solid #cbd5e1;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; color: white;
+      transition: all 0.2s;
+    }
+    .palette-card.selected .palette-check {
+      background: #059669; border-color: #059669;
+    }
+
+    .palette-swatches {
+      display: flex;
+      height: 60px;
+    }
+    .palette-swatches > div {
+      flex: 1;
+      display: flex;
+      align-items: flex-end;
+      padding: 4px 6px;
+      font-size: 10px;
+      font-family: 'JetBrains Mono', monospace;
+      color: white;
+    }
+
+    .palette-preview {
+      padding: 1.25rem;
+    }
+
+    /* Mini site preview inside palette card */
+    .mini-site {
+      border-radius: 8px;
+      overflow: hidden;
+      font-size: 0.75rem;
+    }
+    .mini-nav {
+      padding: 0.5rem 0.75rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .mini-nav span { font-weight: 700; font-size: 0.7rem; letter-spacing: 0.05em; }
+    .mini-nav-links { display: flex; gap: 0.75rem; font-size: 0.65rem; }
+    .mini-hero {
+      padding: 1.5rem 0.75rem;
+    }
+    .mini-hero .label {
+      font-size: 0.55rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.35rem;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .mini-hero h2 {
+      font-size: 1.1rem;
+      margin-bottom: 0.35rem;
+      line-height: 1.2;
+    }
+    .mini-hero p {
+      font-size: 0.65rem;
+      opacity: 0.7;
+      margin-bottom: 0.75rem;
+    }
+    .mini-btn {
+      display: inline-block;
+      padding: 0.3rem 0.75rem;
+      border-radius: 4px;
+      font-size: 0.6rem;
+      font-weight: 600;
+      text-decoration: none;
+      margin-right: 0.5rem;
+    }
+    .mini-cards {
+      padding: 0.75rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem;
+    }
+    .mini-card {
+      border-radius: 6px;
+      padding: 0.5rem;
+      font-size: 0.6rem;
+    }
+    .mini-card .tag {
+      display: inline-block;
+      padding: 1px 6px;
+      border-radius: 99px;
+      font-size: 0.5rem;
+      margin-bottom: 0.25rem;
+    }
+    .mini-card h4 { font-size: 0.7rem; margin-bottom: 0.15rem; }
+
+    /* ---- FONT GRID ---- */
+    .font-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .font-card {
+      border: 2px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 1.5rem;
+      background: white;
+      cursor: pointer;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .font-card:hover { border-color: #3b82f6; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+    .font-card.selected { border-color: #059669; box-shadow: 0 0 0 3px rgba(5,150,105,0.3); }
+
+    .font-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+    .font-card-header h3 { font-size: 0.9rem; font-weight: 600; }
+
+    .font-sample-heading { font-size: 1.8rem; font-weight: 700; margin-bottom: 0.25rem; color: #0f172a; }
+    .font-sample-sub { font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem; color: #334155; }
+    .font-sample-body { font-size: 0.875rem; line-height: 1.6; color: #475569; margin-bottom: 0.75rem; }
+    .font-sample-code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      background: #f1f5f9;
+      padding: 0.5rem 0.75rem;
+      border-radius: 6px;
+      color: #334155;
+      margin-bottom: 0.5rem;
+    }
+    .font-sample-nav {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: #64748b;
+      margin-bottom: 0.75rem;
+    }
+    .font-label {
+      font-size: 0.65rem;
+      color: #94a3b8;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* ---- SUMMARY ---- */
+    .summary {
+      background: white;
+      border: 2px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-top: 2rem;
+    }
+    .summary h2 { font-size: 1.1rem; margin-bottom: 1rem; }
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid #f1f5f9;
+      font-size: 0.9rem;
+    }
+    .summary-row:last-child { border-bottom: none; }
+    .summary-label { color: #64748b; }
+    .summary-value { font-weight: 600; }
+    .copy-btn {
+      margin-top: 1rem;
+      padding: 0.75rem 1.5rem;
+      background: #0f172a;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .copy-btn:hover { background: #1e293b; }
+  </style>
+</head>
+<body>
+
+<h1>Abriliam Consulting — Theme Picker</h1>
+<p class="subtitle">Click a palette and a font to see them combined. Your selection summary appears at the bottom.</p>
+
+<div class="selected-banner" id="banner"></div>
+
+<!-- ===================== COLOR PALETTES ===================== -->
+<div class="section-title">Color Palettes</div>
+<div class="palette-grid" id="palette-grid">
+
+  <!-- Palette A: Current spec (Navy + Amber) -->
+  <div class="palette-card" data-palette="A" onclick="selectPalette('A')">
+    <div class="palette-header">
+      <h3>A. Navy + Amber (current spec)</h3>
+      <div class="palette-check">&#10003;</div>
+    </div>
+    <div class="palette-swatches">
+      <div style="background:#0f172a">#0f172a</div>
+      <div style="background:#334155">#334155</div>
+      <div style="background:#3b82f6">#3b82f6</div>
+      <div style="background:#f59e0b; color:#0f172a">#f59e0b</div>
+      <div style="background:#f8fafc; color:#334155">#f8fafc</div>
+    </div>
+    <div class="palette-preview">
+      <div class="mini-site" style="background:#0f172a; color:#f8fafc">
+        <div class="mini-nav">
+          <span style="color:#f8fafc">ABRILIAM</span>
+          <div class="mini-nav-links" style="color:#94a3b8"><span>Portfolio</span><span>Blog</span><span>Contact</span></div>
+        </div>
+        <div class="mini-hero">
+          <div class="label" style="color:#f59e0b">Industrial Energy Manager</div>
+          <h2>Mike Leishman</h2>
+          <p style="color:#94a3b8">Data-driven energy analytics for industrial facilities.</p>
+          <a class="mini-btn" style="background:#f59e0b; color:#0f172a">View Portfolio</a>
+          <a class="mini-btn" style="border:1px solid #475569; color:#94a3b8">Read Blog</a>
+        </div>
+        <div class="mini-cards" style="background:#1e293b">
+          <div class="mini-card" style="background:#0f172a; border:1px solid #334155">
+            <div class="tag" style="background:#1e3a5f; color:#3b82f6">case-study</div>
+            <h4 style="color:#f8fafc">Energy Audit</h4>
+            <p style="color:#64748b">Manufacturing plant analysis</p>
+          </div>
+          <div class="mini-card" style="background:#0f172a; border:1px solid #334155">
+            <div class="tag" style="background:#422006; color:#f59e0b">tutorial</div>
+            <h4 style="color:#f8fafc">Python for Energy</h4>
+            <p style="color:#64748b">Load profile forecasting</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Palette B: Deep Teal + Amber -->
+  <div class="palette-card" data-palette="B" onclick="selectPalette('B')">
+    <div class="palette-header">
+      <h3>B. Deep Teal + Warm Amber</h3>
+      <div class="palette-check">&#10003;</div>
+    </div>
+    <div class="palette-swatches">
+      <div style="background:#0c1e2c">#0c1e2c</div>
+      <div style="background:#1a3a4a">#1a3a4a</div>
+      <div style="background:#2dd4bf">#2dd4bf</div>
+      <div style="background:#fb923c; color:#0c1e2c">#fb923c</div>
+      <div style="background:#f0fdf4; color:#1a3a4a">#f0fdf4</div>
+    </div>
+    <div class="palette-preview">
+      <div class="mini-site" style="background:#0c1e2c; color:#f0fdf4">
+        <div class="mini-nav">
+          <span style="color:#f0fdf4">ABRILIAM</span>
+          <div class="mini-nav-links" style="color:#6b9a8a"><span>Portfolio</span><span>Blog</span><span>Contact</span></div>
+        </div>
+        <div class="mini-hero">
+          <div class="label" style="color:#fb923c">Industrial Energy Manager</div>
+          <h2>Mike Leishman</h2>
+          <p style="color:#6b9a8a">Data-driven energy analytics for industrial facilities.</p>
+          <a class="mini-btn" style="background:#fb923c; color:#0c1e2c">View Portfolio</a>
+          <a class="mini-btn" style="border:1px solid #1a3a4a; color:#6b9a8a">Read Blog</a>
+        </div>
+        <div class="mini-cards" style="background:#0a1820">
+          <div class="mini-card" style="background:#0c1e2c; border:1px solid #1a3a4a">
+            <div class="tag" style="background:#042f2e; color:#2dd4bf">case-study</div>
+            <h4 style="color:#f0fdf4">Energy Audit</h4>
+            <p style="color:#6b9a8a">Manufacturing plant analysis</p>
+          </div>
+          <div class="mini-card" style="background:#0c1e2c; border:1px solid #1a3a4a">
+            <div class="tag" style="background:#431407; color:#fb923c">tutorial</div>
+            <h4 style="color:#f0fdf4">Python for Energy</h4>
+            <p style="color:#6b9a8a">Load profile forecasting</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Palette C: Charcoal + Electric Blue -->
+  <div class="palette-card" data-palette="C" onclick="selectPalette('C')">
+    <div class="palette-header">
+      <h3>C. Charcoal + Electric Blue</h3>
+      <div class="palette-check">&#10003;</div>
+    </div>
+    <div class="palette-swatches">
+      <div style="background:#18181b">#18181b</div>
+      <div style="background:#3f3f46">#3f3f46</div>
+      <div style="background:#2563eb">#2563eb</div>
+      <div style="background:#facc15; color:#18181b">#facc15</div>
+      <div style="background:#fafafa; color:#3f3f46">#fafafa</div>
+    </div>
+    <div class="palette-preview">
+      <div class="mini-site" style="background:#18181b; color:#fafafa">
+        <div class="mini-nav">
+          <span style="color:#fafafa">ABRILIAM</span>
+          <div class="mini-nav-links" style="color:#71717a"><span>Portfolio</span><span>Blog</span><span>Contact</span></div>
+        </div>
+        <div class="mini-hero">
+          <div class="label" style="color:#facc15">Industrial Energy Manager</div>
+          <h2>Mike Leishman</h2>
+          <p style="color:#71717a">Data-driven energy analytics for industrial facilities.</p>
+          <a class="mini-btn" style="background:#2563eb; color:#fafafa">View Portfolio</a>
+          <a class="mini-btn" style="border:1px solid #3f3f46; color:#a1a1aa">Read Blog</a>
+        </div>
+        <div class="mini-cards" style="background:#111113">
+          <div class="mini-card" style="background:#18181b; border:1px solid #3f3f46">
+            <div class="tag" style="background:#172554; color:#60a5fa">case-study</div>
+            <h4 style="color:#fafafa">Energy Audit</h4>
+            <p style="color:#71717a">Manufacturing plant analysis</p>
+          </div>
+          <div class="mini-card" style="background:#18181b; border:1px solid #3f3f46">
+            <div class="tag" style="background:#422006; color:#facc15">tutorial</div>
+            <h4 style="color:#fafafa">Python for Energy</h4>
+            <p style="color:#71717a">Load profile forecasting</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Palette D: Midnight + Emerald -->
+  <div class="palette-card" data-palette="D" onclick="selectPalette('D')">
+    <div class="palette-header">
+      <h3>D. Midnight + Emerald</h3>
+      <div class="palette-check">&#10003;</div>
+    </div>
+    <div class="palette-swatches">
+      <div style="background:#0a0e1a">#0a0e1a</div>
+      <div style="background:#1e293b">#1e293b</div>
+      <div style="background:#10b981">#10b981</div>
+      <div style="background:#f59e0b; color:#0a0e1a">#f59e0b</div>
+      <div style="background:#f8fafc; color:#1e293b">#f8fafc</div>
+    </div>
+    <div class="palette-preview">
+      <div class="mini-site" style="background:#0a0e1a; color:#f8fafc">
+        <div class="mini-nav">
+          <span style="color:#f8fafc">ABRILIAM</span>
+          <div class="mini-nav-links" style="color:#475569"><span>Portfolio</span><span>Blog</span><span>Contact</span></div>
+        </div>
+        <div class="mini-hero">
+          <div class="label" style="color:#10b981">Industrial Energy Manager</div>
+          <h2>Mike Leishman</h2>
+          <p style="color:#475569">Data-driven energy analytics for industrial facilities.</p>
+          <a class="mini-btn" style="background:#10b981; color:#0a0e1a">View Portfolio</a>
+          <a class="mini-btn" style="border:1px solid #1e293b; color:#64748b">Read Blog</a>
+        </div>
+        <div class="mini-cards" style="background:#060910">
+          <div class="mini-card" style="background:#0a0e1a; border:1px solid #1e293b">
+            <div class="tag" style="background:#064e3b; color:#10b981">case-study</div>
+            <h4 style="color:#f8fafc">Energy Audit</h4>
+            <p style="color:#475569">Manufacturing plant analysis</p>
+          </div>
+          <div class="mini-card" style="background:#0a0e1a; border:1px solid #1e293b">
+            <div class="tag" style="background:#422006; color:#f59e0b">tutorial</div>
+            <h4 style="color:#f8fafc">Python for Energy</h4>
+            <p style="color:#475569">Load profile forecasting</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Palette E: Light Mode — Clean White -->
+  <div class="palette-card" data-palette="E" onclick="selectPalette('E')">
+    <div class="palette-header">
+      <h3>E. Light Mode — Clean White + Navy</h3>
+      <div class="palette-check">&#10003;</div>
+    </div>
+    <div class="palette-swatches">
+      <div style="background:#ffffff; color:#334155; border-top:1px solid #e2e8f0">#ffffff</div>
+      <div style="background:#f8fafc; color:#334155">#f8fafc</div>
+      <div style="background:#0f172a">#0f172a</div>
+      <div style="background:#f59e0b; color:#0f172a">#f59e0b</div>
+      <div style="background:#3b82f6">#3b82f6</div>
+    </div>
+    <div class="palette-preview">
+      <div class="mini-site" style="background:#ffffff; color:#0f172a">
+        <div class="mini-nav" style="border-bottom:1px solid #e2e8f0">
+          <span style="color:#0f172a">ABRILIAM</span>
+          <div class="mini-nav-links" style="color:#64748b"><span>Portfolio</span><span>Blog</span><span>Contact</span></div>
+        </div>
+        <div class="mini-hero">
+          <div class="label" style="color:#f59e0b">Industrial Energy Manager</div>
+          <h2 style="color:#0f172a">Mike Leishman</h2>
+          <p style="color:#64748b">Data-driven energy analytics for industrial facilities.</p>
+          <a class="mini-btn" style="background:#0f172a; color:#f8fafc">View Portfolio</a>
+          <a class="mini-btn" style="border:1px solid #e2e8f0; color:#334155">Read Blog</a>
+        </div>
+        <div class="mini-cards" style="background:#f8fafc">
+          <div class="mini-card" style="background:#ffffff; border:1px solid #e2e8f0">
+            <div class="tag" style="background:#dbeafe; color:#1e40af">case-study</div>
+            <h4 style="color:#0f172a">Energy Audit</h4>
+            <p style="color:#64748b">Manufacturing plant analysis</p>
+          </div>
+          <div class="mini-card" style="background:#ffffff; border:1px solid #e2e8f0">
+            <div class="tag" style="background:#fef3c7; color:#92400e">tutorial</div>
+            <h4 style="color:#0f172a">Python for Energy</h4>
+            <p style="color:#64748b">Load profile forecasting</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ===================== FONT THEMES ===================== -->
+<div class="section-title">Font Themes</div>
+<div class="font-grid" id="font-grid">
+
+  <!-- Font 1: Inter (current spec) -->
+  <div class="font-card" data-font="1" onclick="selectFont('1')">
+    <div class="font-card-header">
+      <h3>1. Inter (current spec)</h3>
+      <div class="palette-check">&#10003;</div>
+    </div>
+    <div class="font-sample-nav" style="font-family:'Inter',sans-serif">HOME &nbsp; PORTFOLIO &nbsp; BLOG &nbsp; CONTACT</div>
+    <div class="font-sample-heading" style="font-family:'Inter',sans-serif">Energy Cost Analysis</div>
+    <div class="font-sample-sub" style="font-family:'Inter',sans-serif">Manufacturing Plant Case Study</div>
+    <div class="font-sample-body" style="font-family:'Inter',sans-serif">Identified $240K in annual energy savings through demand response optimization and load scheduling across three production shifts.</div>
+    <div class="font-sample-code">kWh_savings = baseline - optimized  # 1,847,000 kWh/yr</div>
+    <div class="font-label">Inter + JetBrains Mono &mdash; Clean, neutral, highly readable. The safe choice.</div>
+  </div>
+
+  <!-- Font 2: Space Grotesk -->
+  <div class="font-card" data-font="2" onclick="selectFont('2')">
+    <div class="font-card-header">
+      <h3>2. Space Grotesk</h3>
+      <div class="palette-check">&#10003;</div>
+    </div>
+    <div class="font-sample-nav" style="font-family:'Space Grotesk',sans-serif">HOME &nbsp; PORTFOLIO &nbsp; BLOG &nbsp; CONTACT</div>
+    <div class="font-sample-heading" style="font-family:'Space Grotesk',sans-serif">Energy Cost Analysis</div>
+    <div class="font-sample-sub" style="font-family:'Space Grotesk',sans-serif">Manufacturing Plant Case Study</div>
+    <div class="font-sample-body" style="font-family:'Space Grotesk',sans-serif">Identified $240K in annual energy savings through demand response optimization and load scheduling across three production shifts.</div>
+    <div class="font-sample-code">kWh_savings = baseline - optimized  # 1,847,000 kWh/yr</div>
+    <div class="font-label">Space Grotesk + JetBrains Mono &mdash; Geometric, technical, matches "The Grid" brand perfectly.</div>
+  </div>
+
+  <!-- Font 3: Outfit -->
+  <div class="font-card" data-font="3" onclick="selectFont('3')">
+    <div class="font-card-header">
+      <h3>3. Outfit</h3>
+      <div class="palette-check">&#10003;</div>
+    </div>
+    <div class="font-sample-nav" style="font-family:'Outfit',sans-serif">HOME &nbsp; PORTFOLIO &nbsp; BLOG &nbsp; CONTACT</div>
+    <div class="font-sample-heading" style="font-family:'Outfit',sans-serif">Energy Cost Analysis</div>
+    <div class="font-sample-sub" style="font-family:'Outfit',sans-serif">Manufacturing Plant Case Study</div>
+    <div class="font-sample-body" style="font-family:'Outfit',sans-serif">Identified $240K in annual energy savings through demand response optimization and load scheduling across three production shifts.</div>
+    <div class="font-sample-code">kWh_savings = baseline - optimized  # 1,847,000 kWh/yr</div>
+    <div class="font-label">Outfit + JetBrains Mono &mdash; Modern geometric, slightly softer than Space Grotesk. Friendly but still technical.</div>
+  </div>
+
+  <!-- Font 4: IBM Plex Sans -->
+  <div class="font-card" data-font="4" onclick="selectFont('4')">
+    <div class="font-card-header">
+      <h3>4. IBM Plex Sans</h3>
+      <div class="palette-check">&#10003;</div>
+    </div>
+    <div class="font-sample-nav" style="font-family:'IBM Plex Sans',sans-serif">HOME &nbsp; PORTFOLIO &nbsp; BLOG &nbsp; CONTACT</div>
+    <div class="font-sample-heading" style="font-family:'IBM Plex Sans',sans-serif">Energy Cost Analysis</div>
+    <div class="font-sample-sub" style="font-family:'IBM Plex Sans',sans-serif">Manufacturing Plant Case Study</div>
+    <div class="font-sample-body" style="font-family:'IBM Plex Sans',sans-serif">Identified $240K in annual energy savings through demand response optimization and load scheduling across three production shifts.</div>
+    <div class="font-sample-code">kWh_savings = baseline - optimized  # 1,847,000 kWh/yr</div>
+    <div class="font-label">IBM Plex Sans + JetBrains Mono &mdash; Engineering heritage, excellent data readability. Built for technical content.</div>
+  </div>
+
+  <!-- Font 5: Plus Jakarta Sans -->
+  <div class="font-card" data-font="5" onclick="selectFont('5')">
+    <div class="font-card-header">
+      <h3>5. Plus Jakarta Sans</h3>
+      <div class="palette-check">&#10003;</div>
+    </div>
+    <div class="font-sample-nav" style="font-family:'Plus Jakarta Sans',sans-serif">HOME &nbsp; PORTFOLIO &nbsp; BLOG &nbsp; CONTACT</div>
+    <div class="font-sample-heading" style="font-family:'Plus Jakarta Sans',sans-serif">Energy Cost Analysis</div>
+    <div class="font-sample-sub" style="font-family:'Plus Jakarta Sans',sans-serif">Manufacturing Plant Case Study</div>
+    <div class="font-sample-body" style="font-family:'Plus Jakarta Sans',sans-serif">Identified $240K in annual energy savings through demand response optimization and load scheduling across three production shifts.</div>
+    <div class="font-sample-code">kWh_savings = baseline - optimized  # 1,847,000 kWh/yr</div>
+    <div class="font-label">Plus Jakarta Sans + JetBrains Mono &mdash; Warm, premium, slightly rounded. More approachable for non-technical visitors.</div>
+  </div>
+
+  <!-- Font 6: DM Sans -->
+  <div class="font-card" data-font="6" onclick="selectFont('6')">
+    <div class="font-card-header">
+      <h3>6. DM Sans</h3>
+      <div class="palette-check">&#10003;</div>
+    </div>
+    <div class="font-sample-nav" style="font-family:'DM Sans',sans-serif">HOME &nbsp; PORTFOLIO &nbsp; BLOG &nbsp; CONTACT</div>
+    <div class="font-sample-heading" style="font-family:'DM Sans',sans-serif">Energy Cost Analysis</div>
+    <div class="font-sample-sub" style="font-family:'DM Sans',sans-serif">Manufacturing Plant Case Study</div>
+    <div class="font-sample-body" style="font-family:'DM Sans',sans-serif">Identified $240K in annual energy savings through demand response optimization and load scheduling across three production shifts.</div>
+    <div class="font-sample-code">kWh_savings = baseline - optimized  # 1,847,000 kWh/yr</div>
+    <div class="font-label">DM Sans + JetBrains Mono &mdash; Clean geometric, great at small sizes. Popular in data/analytics dashboards.</div>
+  </div>
+
+</div>
+
+<!-- ===================== SUMMARY ===================== -->
+<div class="summary" id="summary">
+  <h2>Your Selection</h2>
+  <div class="summary-row">
+    <span class="summary-label">Color Palette:</span>
+    <span class="summary-value" id="summary-palette">None selected</span>
+  </div>
+  <div class="summary-row">
+    <span class="summary-label">Font Theme:</span>
+    <span class="summary-value" id="summary-font">None selected</span>
+  </div>
+  <button class="copy-btn" onclick="copySummary()">Copy Selection to Clipboard</button>
+</div>
+
+<script>
+  const palettes = {
+    A: { name: 'Navy + Amber (current spec)', colors: { navy:'#0f172a', slate:'#334155', electric:'#3b82f6', amber:'#f59e0b', offwhite:'#f8fafc' }},
+    B: { name: 'Deep Teal + Warm Amber', colors: { navy:'#0c1e2c', slate:'#1a3a4a', electric:'#2dd4bf', amber:'#fb923c', offwhite:'#f0fdf4' }},
+    C: { name: 'Charcoal + Electric Blue', colors: { navy:'#18181b', slate:'#3f3f46', electric:'#2563eb', amber:'#facc15', offwhite:'#fafafa' }},
+    D: { name: 'Midnight + Emerald', colors: { navy:'#0a0e1a', slate:'#1e293b', electric:'#10b981', amber:'#f59e0b', offwhite:'#f8fafc' }},
+    E: { name: 'Light Mode — Clean White + Navy', colors: { navy:'#ffffff', slate:'#f8fafc', electric:'#3b82f6', amber:'#f59e0b', offwhite:'#0f172a' }},
+  };
+
+  const fonts = {
+    1: { name: 'Inter', family: "'Inter', system-ui, sans-serif" },
+    2: { name: 'Space Grotesk', family: "'Space Grotesk', system-ui, sans-serif" },
+    3: { name: 'Outfit', family: "'Outfit', system-ui, sans-serif" },
+    4: { name: 'IBM Plex Sans', family: "'IBM Plex Sans', system-ui, sans-serif" },
+    5: { name: 'Plus Jakarta Sans', family: "'Plus Jakarta Sans', system-ui, sans-serif" },
+    6: { name: 'DM Sans', family: "'DM Sans', system-ui, sans-serif" },
+  };
+
+  let selectedPalette = null;
+  let selectedFont = null;
+
+  function selectPalette(id) {
+    selectedPalette = id;
+    document.querySelectorAll('.palette-card').forEach(c => c.classList.remove('selected'));
+    document.querySelector(`.palette-card[data-palette="${id}"]`).classList.add('selected');
+    updateSummary();
+  }
+
+  function selectFont(id) {
+    selectedFont = id;
+    document.querySelectorAll('.font-card').forEach(c => c.classList.remove('selected'));
+    document.querySelector(`.font-card[data-font="${id}"]`).classList.add('selected');
+    updateSummary();
+  }
+
+  function updateSummary() {
+    document.getElementById('summary-palette').textContent = selectedPalette ? palettes[selectedPalette].name : 'None selected';
+    document.getElementById('summary-font').textContent = selectedFont ? fonts[selectedFont].name + ' + JetBrains Mono' : 'None selected';
+
+    const banner = document.getElementById('banner');
+    if (selectedPalette && selectedFont) {
+      banner.textContent = `Selected: Palette ${selectedPalette} (${palettes[selectedPalette].name}) + Font ${selectedFont} (${fonts[selectedFont].name})`;
+      banner.classList.add('visible');
+    } else {
+      banner.classList.remove('visible');
+    }
+  }
+
+  function copySummary() {
+    if (!selectedPalette || !selectedFont) {
+      alert('Please select both a palette and a font first.');
+      return;
+    }
+    const p = palettes[selectedPalette];
+    const f = fonts[selectedFont];
+    const text = `THEME SELECTION FOR ABRILIAM CONSULTING\n\nPalette: ${p.name}\n  navy: ${p.colors.navy}\n  slate: ${p.colors.slate}\n  electric: ${p.colors.electric}\n  amber: ${p.colors.amber}\n  offwhite: ${p.colors.offwhite}\n\nFont: ${f.name}\n  family: ${f.family}\n  code: 'JetBrains Mono', monospace`;
+    navigator.clipboard.writeText(text).then(() => {
+      alert('Copied! Paste this into your Claude Code chat to update SKILLS.md.');
+    });
+  }
+</script>
+
+</body>
+</html>

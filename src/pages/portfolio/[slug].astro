@@ -2,6 +2,7 @@
 // src/pages/portfolio/[slug].astro
 // Purpose: Individual notebook viewer page — rendered notebook + metadata
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import TagBadge from '../../components/TagBadge.astro';
 import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -14,12 +15,78 @@ export async function getStaticPaths() {
 
 const { notebook } = Astro.props;
 const { Content } = await notebook.render();
+const { title, summary, tags, techStack, keyFindings, notebookFile, renderedFile } = notebook.data;
 ---
-<BaseLayout title={notebook.data.title} description={notebook.data.summary}>
-  <!-- TODO: Key findings box, rendered notebook HTML, tech stack tags -->
+<BaseLayout title={title} description={summary}>
   <article class="py-16 md:py-24 max-w-5xl mx-auto px-6">
-    <h1 class="text-4xl font-bold tracking-tight mb-4">{notebook.data.title}</h1>
-    <p class="text-slate-500 mb-8">{notebook.data.summary}</p>
-    <Content />
+    <a href="/portfolio" class="text-sm text-brand-electric hover:underline mb-6 inline-block">&larr; Back to Portfolio</a>
+    <h1 class="text-4xl font-bold tracking-tight text-brand-navy dark:text-white mb-4">{title}</h1>
+    <p class="text-slate-500 mb-6">{summary}</p>
+
+    <div class="flex gap-2 flex-wrap mb-6">
+      {tags.map(tag => <TagBadge tag={tag} />)}
+    </div>
+
+    <div class="flex gap-2 flex-wrap mb-8">
+      {techStack.map(tech => (
+        <span class="text-xs font-mono bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded">{tech}</span>
+      ))}
+    </div>
+
+    {keyFindings.length > 0 && (
+      <div class="bg-brand-amber/10 border border-brand-amber/30 rounded-lg p-6 mb-10">
+        <h2 class="text-lg font-semibold text-brand-navy dark:text-white mb-3">Key Findings</h2>
+        <ul class="space-y-2">
+          {keyFindings.map(finding => (
+            <li class="text-sm text-slate-600 dark:text-slate-300 flex gap-2">
+              <span class="text-brand-amber mt-0.5">&#9679;</span>
+              <span>{finding}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    )}
+
+    <div class="prose dark:prose-invert max-w-none mb-10">
+      <Content />
+    </div>
+
+    {/* Rendered notebook viewer */}
+    <div class="mb-10">
+      <h2 class="text-2xl font-bold text-brand-navy dark:text-white mb-4">Notebook</h2>
+      <div class="rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden">
+        <iframe
+          src={`/notebooks/rendered/${renderedFile}`}
+          title={`${title} — rendered notebook`}
+          class="w-full bg-white dark:bg-slate-900"
+          style="height: 80vh; min-height: 600px;"
+          loading="lazy"
+        ></iframe>
+      </div>
+    </div>
+
+    <div class="flex flex-wrap gap-4">
+      <a
+        href={`https://colab.research.google.com/github/MIkeAndrew5523/WattCraft/blob/main/public/notebooks/${notebookFile}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn-primary inline-flex items-center gap-2"
+      >
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M16.941 4.976a7.033 7.033 0 0 0-4.93-2.064 7.033 7.033 0 0 0-4.936 2.064l6.243 6.243 3.623-6.243zm-11.2 1.636L4.1 9.248a7.033 7.033 0 0 0 0 5.504l1.641 2.636 3.544-6.108L5.74 6.612zm13.605 8.291 1.545-2.535a7.033 7.033 0 0 0 0-5.736l-1.545-2.535-3.544 6.108 3.544 6.698zm-5.346.493-3.623 6.243a7.033 7.033 0 0 0 4.936 2.064 7.033 7.033 0 0 0 4.93-2.064l-6.243-6.243z"/>
+        </svg>
+        Open in Google Colab
+      </a>
+      <a
+        href={`/notebooks/${notebookFile}`}
+        download
+        class="btn-primary inline-flex items-center gap-2 bg-slate-600 hover:bg-slate-700"
+      >
+        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3M3 17v3a2 2 0 002 2h14a2 2 0 002-2v-3" />
+        </svg>
+        Download Notebook (.ipynb)
+      </a>
+    </div>
   </article>
 </BaseLayout>

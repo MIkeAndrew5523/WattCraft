@@ -1,12 +1,88 @@
 ---
 // src/pages/portfolio/index.astro
-// Purpose: Portfolio page — grid of notebook projects
+// Purpose: Portfolio page — one card per project, expandable to show notebook sections
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import TagBadge from '../../components/TagBadge.astro';
+import { getCollection } from 'astro:content';
+
+const notebooks = await getCollection('notebooks');
+
+// Group notebooks by project
+const projects = new Map();
+for (const nb of notebooks) {
+  const key = nb.data.project;
+  if (!projects.has(key)) {
+    projects.set(key, {
+      slug: key,
+      title: nb.data.projectTitle,
+      summary: nb.data.projectSummary,
+      tags: new Set(),
+      techStack: new Set(),
+      notebooks: [],
+    });
+  }
+  const proj = projects.get(key);
+  nb.data.tags.forEach(t => proj.tags.add(t));
+  nb.data.techStack.forEach(t => proj.techStack.add(t));
+  proj.notebooks.push(nb);
+}
+
+// Sort notebooks within each project by order
+for (const proj of projects.values()) {
+  proj.notebooks.sort((a, b) => a.data.order - b.data.order);
+}
 ---
-<BaseLayout title="Portfolio" description="Jupyter notebook projects showcasing energy analytics work.">
-  <!-- TODO: Notebook project grid with tag filtering -->
+<BaseLayout title="Portfolio" description="Jupyter notebook case studies showcasing industrial energy analytics.">
   <section class="py-16 md:py-24 max-w-5xl mx-auto px-6">
-    <h1 class="text-4xl font-bold tracking-tight mb-8">Portfolio</h1>
-    <p class="text-slate-500">Coming soon.</p>
+    <h1 class="text-4xl font-bold tracking-tight text-brand-navy dark:text-white mb-4">Portfolio</h1>
+    <p class="text-slate-500 mb-12 max-w-2xl">
+      Chiller plant diagnostics, energy audits, and data-driven case studies built with Python and Jupyter notebooks.
+    </p>
+
+    <div class="space-y-8">
+      {[...projects.values()].map((proj) => (
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden">
+          <div class="p-6 md:p-8">
+            <div class="flex gap-2 flex-wrap mb-4">
+              {[...proj.tags].slice(0, 6).map(tag => <TagBadge tag={tag} />)}
+            </div>
+            <h2 class="text-2xl font-bold text-brand-navy dark:text-white mb-3">{proj.title}</h2>
+            <p class="text-slate-500 mb-4">{proj.summary}</p>
+            <div class="flex gap-2 flex-wrap mb-6">
+              {[...proj.techStack].map(tech => (
+                <span class="text-xs font-mono bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded">{tech}</span>
+              ))}
+            </div>
+
+            <details class="group">
+              <summary class="cursor-pointer text-brand-electric font-semibold text-sm flex items-center gap-2 select-none">
+                <svg class="w-4 h-4 transition-transform group-open:rotate-90" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                </svg>
+                View {proj.notebooks.length} Notebook Sections
+              </summary>
+              <ol class="mt-4 space-y-2 border-t border-slate-200 dark:border-slate-700 pt-4">
+                {proj.notebooks.map((nb) => (
+                  <li>
+                    <a
+                      href={`/portfolio/${nb.slug}/`}
+                      class="flex items-start gap-3 p-3 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+                    >
+                      <span class="text-brand-amber font-mono text-sm mt-0.5 shrink-0">
+                        {String(nb.data.order).padStart(2, '0')}
+                      </span>
+                      <div>
+                        <span class="font-medium text-brand-navy dark:text-white">{nb.data.title.replace(/^\d+\s*—\s*/, '')}</span>
+                        <p class="text-xs text-slate-500 mt-0.5">{nb.data.summary}</p>
+                      </div>
+                    </a>
+                  </li>
+                ))}
+              </ol>
+            </details>
+          </div>
+        </article>
+      ))}
+    </div>
   </section>
 </BaseLayout>

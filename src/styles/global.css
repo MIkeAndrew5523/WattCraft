@@ -1,6 +1,8 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
+@variant dark (&:where(.dark, .dark *));
+
 @theme {
   /* Brand Color Palette — SKILLS.md section 1 */
   --color-brand-navy: #0f172a;

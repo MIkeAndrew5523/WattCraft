@@ -25,3 +25,9 @@ pnpm-debug.log*
 
 # claude code runtime
 .claude/
+
+# rendered notebook HTML (generated at build time)
+public/notebooks/rendered/
+
+# temp files
+public/notebooks/_tmp.png

@@ -5,7 +5,7 @@ const blog = defineCollection({
   schema: z.object({
     title: z.string(),
     date: z.string(),
-    tags: z.array(z.enum(['case-study', 'opinion', 'tutorial'])),
+    tags: z.array(z.string()),
     summary: z.string(),
     draft: z.boolean().default(true),
   }),
@@ -23,6 +23,10 @@ const notebooks = defineCollection({
     keyFindings: z.array(z.string()),
     notebookFile: z.string(),
     renderedFile: z.string(),
+    project: z.string(),
+    projectTitle: z.string(),
+    projectSummary: z.string(),
+    order: z.number(),
   }),
 });
 

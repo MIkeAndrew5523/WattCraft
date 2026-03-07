@@ -4,7 +4,8 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "render-notebooks": "node scripts/render-notebooks.mjs",
+    "build": "node scripts/render-notebooks.mjs && astro build",
     "preview": "astro preview",
     "astro": "astro"
   },
@@ -15,7 +16,12 @@
     "@tailwindcss/typography": "^0.5.19",
     "@tailwindcss/vite": "^4.2.1",
     "astro": "^5.17.1",
+    "rehype-katex": "^7.0.1",
+    "remark-math": "^6.0.0",
     "sharp": "^0.34.5",
     "tailwindcss": "^4.2.1"
+  },
+  "devDependencies": {
+    "marked": "^17.0.4"
   }
 }
