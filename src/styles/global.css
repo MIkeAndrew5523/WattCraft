@@ -16,6 +16,29 @@
   --font-mono: 'JetBrains Mono', monospace;
 }
 
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+  }
+
+  /* Hide non-content elements */
+  nav, footer, #share-btn, #sms-btn, #print-btn, a[href="/blog"] {
+    display: none !important;
+  }
+
+  /* Strip backgrounds and shadows */
+  article, section, div {
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+  /* Ensure readable text */
+  h1, h2, h3, h4, h5, h6, p, li, span, time, td, th, blockquote, code {
+    color: black !important;
+  }
+}
+
 @layer components {
   .btn-primary {
     @apply inline-block bg-brand-amber text-brand-navy font-semibold px-6 py-3 rounded-lg hover:opacity-90 transition-opacity;

@@ -6,6 +6,13 @@ import TagBadge from '../../components/TagBadge.astro';
 import { getCollection } from 'astro:content';
 
 const notebooks = await getCollection('notebooks');
+const projectPages = await getCollection('projects');
+
+// Build lookup: notebookProject -> project page slug
+const projectPageMap = new Map();
+for (const pp of projectPages) {
+  projectPageMap.set(pp.data.notebookProject, pp.slug);
+}
 
 // Group notebooks by project
 const projects = new Map();
@@ -19,6 +26,7 @@ for (const nb of notebooks) {
       tags: new Set(),
       techStack: new Set(),
       notebooks: [],
+      pageSlug: projectPageMap.get(key) || null,
     });
   }
   const proj = projects.get(key);
@@ -46,7 +54,13 @@ for (const proj of projects.values()) {
             <div class="flex gap-2 flex-wrap mb-4">
               {[...proj.tags].slice(0, 6).map(tag => <TagBadge tag={tag} />)}
             </div>
-            <h2 class="text-2xl font-bold text-brand-navy dark:text-white mb-3">{proj.title}</h2>
+            {proj.pageSlug ? (
+              <a href={`/portfolio/projects/${proj.pageSlug}/`} class="group/title">
+                <h2 class="text-2xl font-bold text-brand-navy dark:text-white mb-3 group-hover/title:text-brand-electric transition-colors">{proj.title}</h2>
+              </a>
+            ) : (
+              <h2 class="text-2xl font-bold text-brand-navy dark:text-white mb-3">{proj.title}</h2>
+            )}
             <p class="text-slate-500 mb-4">{proj.summary}</p>
             <div class="flex gap-2 flex-wrap mb-6">
               {[...proj.techStack].map(tech => (
@@ -54,7 +68,21 @@ for (const proj of projects.values()) {
               ))}
             </div>
 
-            <details class="group">
+            <div class="flex items-center gap-6 flex-wrap">
+              {proj.pageSlug && (
+                <a
+                  href={`/portfolio/projects/${proj.pageSlug}/`}
+                  class="text-brand-electric font-semibold text-sm flex items-center gap-2 hover:underline"
+                >
+                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  View Project Details
+                </a>
+              )}
+            </div>
+
+            <details class="group mt-4">
               <summary class="cursor-pointer text-brand-electric font-semibold text-sm flex items-center gap-2 select-none">
                 <svg class="w-4 h-4 transition-transform group-open:rotate-90" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />

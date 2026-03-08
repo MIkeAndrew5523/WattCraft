@@ -30,4 +30,22 @@ const notebooks = defineCollection({
   }),
 });
 
-export const collections = { blog, notebooks };
+const projects = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    date: z.string(),
+    tags: z.array(z.string()),
+    techStack: z.array(z.string()),
+    sector: z.enum(['industrial', 'commercial', 'utility', 'other']),
+    summary: z.string(),
+    scope: z.string(),
+    data: z.string(),
+    approach: z.string(),
+    outcome: z.string(),
+    keyFindings: z.array(z.string()),
+    notebookProject: z.string(), // matches notebook.data.project
+  }),
+});
+
+export const collections = { blog, notebooks, projects };

@@ -2,6 +2,7 @@
 // src/pages/blog/[slug].astro
 // Purpose: Individual blog post page
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import TagBadge from '../../components/TagBadge.astro';
 import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -14,11 +15,90 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await post.render();
+const { title, summary, date, tags } = post.data;
+
+const words = (post.body || '').trim().split(/\s+/).length;
+const readingTime = Math.max(1, Math.round(words / 200));
 ---
-<BaseLayout title={post.data.title} description={post.data.summary}>
-  <!-- TODO: Full blog post layout with reading time, tags, back button -->
-  <article class="py-16 md:py-24 max-w-3xl mx-auto px-6 prose dark:prose-invert">
-    <h1>{post.data.title}</h1>
-    <Content />
+<BaseLayout title={title} description={summary}>
+  <article class="py-16 md:py-24 max-w-3xl mx-auto px-6">
+    <a href="/blog" class="text-sm text-brand-electric hover:underline mb-6 inline-block">&larr; Back to Blog</a>
+
+    <div class="flex gap-2 flex-wrap mb-4">
+      {tags.map(tag => <TagBadge tag={tag} />)}
+    </div>
+
+    <h1 class="text-3xl md:text-4xl font-bold tracking-tight text-brand-navy dark:text-white mb-4">{title}</h1>
+
+    <div class="flex items-center justify-between mb-10">
+      <div class="flex items-center gap-4 text-sm text-slate-400">
+        <time datetime={date}>
+          {new Date(date).toLocaleDateString('en-CA', { year: 'numeric', month: 'long', day: 'numeric' })}
+        </time>
+        <span>{readingTime} min read</span>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <button
+          id="share-btn"
+          title="Share article"
+          class="p-2 rounded-lg text-slate-400 hover:text-brand-electric hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+          </svg>
+        </button>
+        <a
+          id="sms-btn"
+          title="Send via SMS"
+          class="p-2 rounded-lg text-slate-400 hover:text-brand-electric hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+          </svg>
+        </a>
+        <button
+          id="print-btn"
+          title="Print article"
+          class="p-2 rounded-lg text-slate-400 hover:text-brand-electric hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="prose dark:prose-invert max-w-none">
+      <Content />
+    </div>
   </article>
 </BaseLayout>
+
+<script define:vars={{ title, summary }}>
+  const url = window.location.href;
+
+  // Print
+  document.getElementById('print-btn').addEventListener('click', () => {
+    window.print();
+  });
+
+  // Share (Web Share API with email fallback)
+  document.getElementById('share-btn').addEventListener('click', async () => {
+    if (navigator.share) {
+      try {
+        await navigator.share({ title, text: summary, url });
+      } catch (e) {
+        if (e.name !== 'AbortError') console.error(e);
+      }
+    } else {
+      const subject = encodeURIComponent(title);
+      const body = encodeURIComponent(`${summary}\n\n${url}`);
+      window.location.href = `mailto:?subject=${subject}&body=${body}`;
+    }
+  });
+
+  // SMS
+  const smsBody = encodeURIComponent(`${title} — ${url}`);
+  document.getElementById('sms-btn').href = `sms:?body=${smsBody}`;
+</script>
