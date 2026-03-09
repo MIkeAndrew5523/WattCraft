@@ -1,0 +1,60 @@
+---
+// src/pages/notes/index.astro
+// Purpose: Notes listing — short-form insights, highlights, and commentary
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import TagBadge from '../../components/TagBadge.astro';
+import { getCollection } from 'astro:content';
+
+const notes = await getCollection('notes');
+const sorted = notes.sort((a, b) =>
+  new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
+
+const categoryLabel: Record<string, string> = {
+  insight: 'Insight',
+  highlight: 'Project Highlight',
+  news: 'News',
+};
+
+const categoryColor: Record<string, string> = {
+  insight: 'bg-brand-electric/10 text-brand-electric',
+  highlight: 'bg-brand-amber/10 text-brand-amber',
+  news: 'bg-emerald-500/10 text-emerald-600',
+};
+---
+<BaseLayout title="Notes" description="Short-form insights, project highlights, and commentary on energy trends in Ontario.">
+  <section class="py-16 md:py-24 max-w-4xl mx-auto px-6">
+    <h1 class="text-4xl font-bold tracking-tight text-brand-navy dark:text-white mb-4">Notes</h1>
+    <p class="text-slate-500 mb-12 max-w-2xl">
+      Quick takes on energy trends, commentary on notable projects, and short observations that don't need a full blog post.
+    </p>
+
+    {sorted.length === 0 ? (
+      <p class="text-slate-500">No notes yet. Check back soon.</p>
+    ) : (
+      <div class="space-y-6">
+        {sorted.map((note) => (
+          <article class="group rounded-xl border border-slate-200 dark:border-slate-700 p-6 hover:border-brand-electric/50 transition-colors">
+            <a href={`/notes/${note.slug}/`} class="block">
+              <div class="flex items-center gap-3 mb-3">
+                <span class={`text-xs font-semibold px-2.5 py-0.5 rounded-full ${categoryColor[note.data.category]}`}>
+                  {categoryLabel[note.data.category]}
+                </span>
+                <time datetime={note.data.date} class="text-xs text-slate-400">
+                  {new Date(note.data.date).toLocaleDateString('en-CA', { year: 'numeric', month: 'short', day: 'numeric' })}
+                </time>
+              </div>
+              <h2 class="text-lg font-bold text-brand-navy dark:text-white mb-2 group-hover:text-brand-electric transition-colors">
+                {note.data.title}
+              </h2>
+              <p class="text-sm text-slate-500">{note.data.summary}</p>
+              <div class="flex gap-2 flex-wrap mt-3">
+                {note.data.tags.slice(0, 4).map(tag => <TagBadge tag={tag} />)}
+              </div>
+            </a>
+          </article>
+        ))}
+      </div>
+    )}
+  </section>
+</BaseLayout>
