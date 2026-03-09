@@ -1,12 +1,99 @@
 ---
 // src/pages/about.astro
-// Purpose: Bio, credentials, resume download
+// Purpose: About page — firm overview, expertise, approach
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
-<BaseLayout title="About" description="About Abriliam Consulting — Industrial Energy Management and data analytics.">
-  <!-- TODO: Bio section, credentials, resume download link -->
-  <section class="py-16 md:py-24 max-w-5xl mx-auto px-6">
-    <h1 class="text-4xl font-bold tracking-tight mb-8">About</h1>
-    <p class="text-slate-500">Coming soon.</p>
+<BaseLayout title="About" description="About Abriliam Consulting — Industrial energy management, data analytics, and engineering consulting.">
+  <section class="py-16 md:py-24 max-w-4xl mx-auto px-6">
+
+    <!-- Header -->
+    <h1 class="text-4xl font-bold tracking-tight text-brand-navy dark:text-white mb-6">About</h1>
+    <p class="text-lg text-slate-600 dark:text-slate-300 mb-12 max-w-3xl leading-relaxed">
+      Abriliam Consulting is a Canadian energy analytics practice specializing in industrial and commercial facility performance — turning operational data into measurable savings and defensible engineering decisions.
+    </p>
+
+    <!-- What We Do -->
+    <div class="mb-16">
+      <h2 class="text-2xl font-bold text-brand-navy dark:text-white mb-4">What We Do</h2>
+      <p class="text-slate-600 dark:text-slate-300 mb-6 leading-relaxed">
+        We work at the intersection of mechanical systems engineering and data science. Our projects typically start with messy operational data — BAS trend logs, utility billing records, SCADA exports, weather files — and produce actionable analysis: savings estimates, M&V frameworks, predictive models, and capital planning tools grounded in engineering fundamentals.
+      </p>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="rounded-lg border border-slate-200 dark:border-slate-700 p-6">
+          <h3 class="font-semibold text-brand-navy dark:text-white mb-2">Chiller & Refrigeration Plant Analytics</h3>
+          <p class="text-sm text-slate-500 dark:text-slate-400">
+            Performance diagnostics, low delta-T syndrome identification, hydraulic regime detection, cooling tower analysis, and plant-level efficiency optimization using trend data and thermodynamic modeling.
+          </p>
+        </div>
+        <div class="rounded-lg border border-slate-200 dark:border-slate-700 p-6">
+          <h3 class="font-semibold text-brand-navy dark:text-white mb-2">Energy Conservation Measure Analysis</h3>
+          <p class="text-sm text-slate-500 dark:text-slate-400">
+            Prospective savings estimation and post-implementation M&V aligned with IPMVP — including floating head pressure, VFD retrofits, condenser optimization, and controls upgrades across commercial and industrial refrigeration.
+          </p>
+        </div>
+        <div class="rounded-lg border border-slate-200 dark:border-slate-700 p-6">
+          <h3 class="font-semibold text-brand-navy dark:text-white mb-2">Electricity Cost Optimization</h3>
+          <p class="text-sm text-slate-500 dark:text-slate-400">
+            Machine learning-driven peak demand prediction, Global Adjustment optimization for Ontario Class A customers, and load curtailment strategy development using IESO market data and weather-driven forecasting.
+          </p>
+        </div>
+        <div class="rounded-lg border border-slate-200 dark:border-slate-700 p-6">
+          <h3 class="font-semibold text-brand-navy dark:text-white mb-2">Portfolio-Level Building Analytics</h3>
+          <p class="text-sm text-slate-500 dark:text-slate-400">
+            Degree-day regression screening across large building portfolios, thermal performance benchmarking, and data-driven prioritization of envelope and mechanical retrofits using utility billing data.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Approach -->
+    <div class="mb-16">
+      <h2 class="text-2xl font-bold text-brand-navy dark:text-white mb-4">Approach</h2>
+      <p class="text-slate-600 dark:text-slate-300 mb-4 leading-relaxed">
+        Every project starts with engineering fundamentals — thermodynamics, heat transfer, fluid mechanics — and uses data to quantify what the physics predicts. We don't fit models to data without understanding why the relationship exists. When a regression slope tells us something about a building's thermal performance, we can trace it back to the steady-state heat loss equation. When a gradient boosting model predicts peak demand, the SHAP feature importance should align with what an experienced energy manager already knows about weather-driven cooling loads.
+      </p>
+      <p class="text-slate-600 dark:text-slate-300 leading-relaxed">
+        Our deliverables are reproducible. Analysis is built in Python and Jupyter notebooks with documented methodology, version-controlled code, and transparent assumptions. Clients receive not just results, but the analytical framework — so the work can be verified, extended, and rerun as conditions change.
+      </p>
+    </div>
+
+    <!-- Technical Toolkit -->
+    <div class="mb-16">
+      <h2 class="text-2xl font-bold text-brand-navy dark:text-white mb-4">Technical Toolkit</h2>
+      <div class="flex flex-wrap gap-2">
+        {[
+          "Python", "pandas", "NumPy", "scikit-learn", "XGBoost", "LightGBM",
+          "SHAP", "matplotlib", "seaborn", "SciPy", "Jupyter",
+          "IPMVP", "ASHRAE", "IESO Market Data", "Open-Meteo API",
+          "BAS/SCADA Integration", "Degree-Day Analysis", "Bin Method",
+          "Regression-Based M&V", "Statistical Process Control"
+        ].map(tool => (
+          <span class="text-xs font-mono bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 px-3 py-1.5 rounded">{tool}</span>
+        ))}
+      </div>
+    </div>
+
+    <!-- Sectors -->
+    <div class="mb-16">
+      <h2 class="text-2xl font-bold text-brand-navy dark:text-white mb-4">Sectors</h2>
+      <p class="text-slate-600 dark:text-slate-300 leading-relaxed">
+        Industrial manufacturing, commercial refrigeration and cold storage, institutional facilities, municipal building portfolios, and Ontario electricity market participants. Our experience spans the mechanical systems and energy cost structures common to facilities in the 500 kW to 20 MW demand range.
+      </p>
+    </div>
+
+    <!-- CTA -->
+    <div class="rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 p-8 text-center">
+      <h2 class="text-xl font-bold text-brand-navy dark:text-white mb-3">Interested in working together?</h2>
+      <p class="text-slate-500 dark:text-slate-400 mb-6">
+        We take on project-based engagements in energy analytics, savings verification, and predictive modeling.
+      </p>
+      <a
+        href="/contact/"
+        class="inline-block bg-brand-electric text-white font-semibold px-6 py-3 rounded-lg hover:opacity-90 transition-opacity"
+      >
+        Get in Touch
+      </a>
+    </div>
+
   </section>
 </BaseLayout>
