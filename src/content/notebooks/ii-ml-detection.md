@@ -1,6 +1,6 @@
 ---
 title: "04 — ML-Based RDII Detection"
-date: "2025-11-27"
+date: "2025-12-04"
 tags: ["xgboost", "lstm", "anomaly-detection", "shap", "conductivity"]
 techStack: ["Python", "pandas", "numpy", "scikit-learn", "xgboost", "tensorflow", "shap", "matplotlib"]
 sector: "utility"

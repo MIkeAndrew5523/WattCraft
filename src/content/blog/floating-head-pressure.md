@@ -1,6 +1,6 @@
 ---
 title: "Floating Head Pressure: Estimating and Verifying Compressor Energy Savings for Grocery Cold Storage Refrigeration"
-date: "2025-01-22"
+date: "2025-09-18"
 tags: ["refrigeration", "energy-efficiency", "m-and-v", "controls", "grocery"]
 summary: "A temperature bin analysis and regression-based M&V framework for estimating and verifying compressor energy savings from floating condenser head pressure control on reciprocating rack systems with air-cooled condensers."
 draft: true

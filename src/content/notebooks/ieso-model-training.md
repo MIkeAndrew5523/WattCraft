@@ -1,6 +1,6 @@
 ---
 title: "03 — Model Training & Selection"
-date: "2025-05-22"
+date: "2025-10-16"
 tags: ["xgboost", "regression", "classification", "shap", "model-selection"]
 techStack: ["Python", "scikit-learn", "xgboost", "lightgbm", "shap", "matplotlib"]
 sector: "utility"

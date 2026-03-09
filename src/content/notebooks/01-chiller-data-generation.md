@@ -1,6 +1,6 @@
 ---
 title: "01 — Data Generation & Setup"
-date: "2024-09-12"
+date: "2025-07-15"
 tags: ["chiller-plant", "synthetic-data", "fault-injection"]
 techStack: ["Python", "numpy", "pandas", "matplotlib"]
 sector: "industrial"

@@ -1,6 +1,6 @@
 ---
 title: "Gas Bills by Postal Code: A Screening Tool for Municipal Envelope Incentive Programs"
-date: "2026-02-27"
+date: "2026-02-12"
 tags: ["energy", "building-performance", "municipal", "regression", "policy"]
 summary: "Using aggregated natural gas consumption data by postal code and property tax roll characteristics to identify neighbourhoods with the worst-performing building envelopes — and target retrofit incentive dollars where they'll do the most good."
 draft: true

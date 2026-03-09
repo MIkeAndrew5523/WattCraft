@@ -1,6 +1,6 @@
 ---
 title: "evolv1 — Canada's First Net-Positive Multi-Tenant Office Building"
-date: "2025-02-20"
+date: "2025-07-18"
 tags: ["net-zero", "commercial", "solar", "building-performance", "waterloo"]
 category: "highlight"
 summary: "evolv1 in Waterloo, Ontario generates more energy than it consumes. A look at what this Sustainable Waterloo Region facility demonstrates about high-performance building operations in Ontario's climate."

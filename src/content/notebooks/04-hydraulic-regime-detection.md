@@ -1,6 +1,6 @@
 ---
 title: "04 — Hydraulic Regime Detection"
-date: "2024-10-03"
+date: "2025-08-05"
 tags: ["chiller-plant", "clustering", "gmm", "hydraulics", "regime-detection"]
 techStack: ["Python", "scikit-learn", "matplotlib"]
 sector: "industrial"

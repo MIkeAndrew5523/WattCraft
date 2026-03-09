@@ -1,6 +1,6 @@
 ---
 title: "07 — Efficiency Summary & Energy Waste"
-date: "2024-10-24"
+date: "2025-08-26"
 tags: ["chiller-plant", "energy-waste", "subsystem-analysis", "summary"]
 techStack: ["Python", "pandas", "numpy", "matplotlib"]
 sector: "industrial"

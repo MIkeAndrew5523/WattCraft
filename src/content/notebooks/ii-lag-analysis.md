@@ -1,6 +1,6 @@
 ---
 title: "03 — Cross-Correlation Lag Analysis"
-date: "2025-11-20"
+date: "2025-11-27"
 tags: ["cross-correlation", "lag-analysis", "pre-whitening", "arima", "i-and-i-classification"]
 techStack: ["Python", "pandas", "numpy", "statsmodels", "scipy", "matplotlib", "seaborn"]
 sector: "utility"

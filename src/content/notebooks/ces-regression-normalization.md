@@ -1,6 +1,6 @@
 ---
 title: "02 — HDD Regression & Normalization"
-date: "2026-02-13"
+date: "2026-01-22"
 tags: ["regression", "normalization", "hdd", "building-stock"]
 techStack: ["Python", "pandas", "numpy", "scipy", "matplotlib", "seaborn"]
 sector: "other"

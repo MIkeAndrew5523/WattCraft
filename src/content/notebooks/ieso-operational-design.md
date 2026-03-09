@@ -1,6 +1,6 @@
 ---
 title: "05 — Operational Design & Deployment Architecture"
-date: "2025-06-12"
+date: "2025-10-30"
 tags: ["deployment", "api-design", "real-time", "monitoring"]
 techStack: ["Python", "pandas", "requests", "matplotlib", "joblib"]
 sector: "utility"

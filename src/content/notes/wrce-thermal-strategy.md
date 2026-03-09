@@ -1,6 +1,6 @@
 ---
 title: "Waterloo Region's Thermal Energy Strategy"
-date: "2025-10-02"
+date: "2025-09-25"
 tags: ["district-energy", "thermal-networks", "municipal", "decarbonization"]
 category: "highlight"
 summary: "Waterloo Region Community Energy's thermal strategy assessment explores district energy and thermal network opportunities — and signals where Ontario's municipal decarbonization efforts are heading."

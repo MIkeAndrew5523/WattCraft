@@ -1,6 +1,6 @@
 ---
 title: "01 — Data Acquisition & Exploratory Analysis"
-date: "2026-02-06"
+date: "2026-01-15"
 tags: ["natural-gas", "postal-code", "mpac", "exploratory-analysis"]
 techStack: ["Python", "pandas", "numpy", "matplotlib", "seaborn"]
 sector: "other"

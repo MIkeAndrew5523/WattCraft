@@ -1,6 +1,6 @@
 ---
 title: "02 — M&V Regression Framework & Sensitivity Analysis"
-date: "2025-01-16"
+date: "2025-09-11"
 tags: ["refrigeration", "floating-head-pressure", "m-and-v", "regression", "ipmvp"]
 techStack: ["Python", "numpy", "pandas", "matplotlib", "scipy"]
 sector: "commercial"

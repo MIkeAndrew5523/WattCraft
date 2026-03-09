@@ -1,6 +1,6 @@
 ---
 title: "02 — DWF Baseline & Time Series Decomposition"
-date: "2025-11-13"
+date: "2025-11-20"
 tags: ["stl-decomposition", "dry-weather-flow", "rdii", "time-series"]
 techStack: ["Python", "pandas", "numpy", "statsmodels", "matplotlib", "seaborn"]
 sector: "utility"

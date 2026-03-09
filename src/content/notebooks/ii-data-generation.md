@@ -1,6 +1,6 @@
 ---
 title: "01 — Synthetic Data Generation"
-date: "2025-11-06"
+date: "2025-11-13"
 tags: ["synthetic-data", "wastewater", "i-and-i", "snowmelt", "scada"]
 techStack: ["Python", "pandas", "numpy", "scipy", "matplotlib"]
 sector: "utility"

@@ -1,6 +1,6 @@
 ---
 title: "02 — Feature Engineering"
-date: "2025-05-15"
+date: "2025-10-09"
 tags: ["feature-engineering", "humidex", "cooling-degree-hours", "temporal-features"]
 techStack: ["Python", "pandas", "numpy", "matplotlib", "seaborn"]
 sector: "utility"

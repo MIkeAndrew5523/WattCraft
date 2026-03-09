@@ -1,6 +1,6 @@
 ---
 title: "05 — Energy Penalty & Plant Ranking"
-date: "2025-12-04"
+date: "2025-12-11"
 tags: ["energy-penalty", "cost-benefit", "prioritization", "remediation", "capital-planning"]
 techStack: ["Python", "pandas", "numpy", "matplotlib", "seaborn"]
 sector: "utility"

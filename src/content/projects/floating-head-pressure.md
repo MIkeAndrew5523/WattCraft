@@ -1,6 +1,6 @@
 ---
 title: "Floating Head Pressure — Grocery Cold Storage"
-date: "2025-01-16"
+date: "2025-09-11"
 tags: ["refrigeration", "floating-head-pressure", "energy-savings", "m-and-v", "controls", "grocery"]
 techStack: ["Python", "numpy", "pandas", "matplotlib", "scipy"]
 sector: "commercial"

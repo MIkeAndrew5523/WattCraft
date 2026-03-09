@@ -1,6 +1,6 @@
 ---
 title: "Gas Bills by Postal Code"
-date: "2026-02-20"
+date: "2026-01-29"
 tags: ["natural-gas", "building-performance", "municipal", "regression", "policy", "mpac"]
 techStack: ["Python", "pandas", "numpy", "scipy", "matplotlib", "seaborn"]
 sector: "other"
