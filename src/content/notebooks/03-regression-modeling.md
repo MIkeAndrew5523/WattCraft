@@ -1,6 +1,6 @@
 ---
 title: "03 — Regression Modeling"
-date: "2026-03-07"
+date: "2024-09-25"
 tags: ["chiller-plant", "regression", "scikit-learn", "prediction"]
 techStack: ["Python", "scikit-learn", "scipy", "matplotlib"]
 sector: "industrial"

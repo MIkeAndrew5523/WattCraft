@@ -1,6 +1,6 @@
 ---
 title: "Cold Climate Heat Pumps Are Real — But the Sizing Math Matters"
-date: "2026-03-09"
+date: "2025-12-11"
 tags: ["heat-pumps", "decarbonization", "building-performance", "ontario"]
 category: "insight"
 summary: "Cold climate heat pump technology has matured, but facility managers considering electrification need to understand the design-day sizing gap and what it means for backup capacity."

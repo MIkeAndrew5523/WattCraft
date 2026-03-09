@@ -1,6 +1,6 @@
 ---
 title: "03 — Neighbourhood Prioritization & Targeting"
-date: "2026-03-09"
+date: "2026-02-20"
 tags: ["prioritization", "targeting", "incentive-programs", "sensitivity-analysis"]
 techStack: ["Python", "pandas", "numpy", "matplotlib", "seaborn", "scipy"]
 sector: "other"

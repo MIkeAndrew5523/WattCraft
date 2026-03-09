@@ -1,6 +1,6 @@
 ---
 title: "Chiller Plant Diagnostics"
-date: "2026-03-07"
+date: "2024-10-24"
 tags: ["chiller-plant", "fault-detection", "energy-diagnostics", "regression", "HVAC"]
 techStack: ["Python", "numpy", "pandas", "matplotlib", "scipy", "scikit-learn"]
 sector: "industrial"

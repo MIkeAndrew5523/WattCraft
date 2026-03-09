@@ -1,6 +1,6 @@
 ---
 title: "04 — Backtesting & Financial Valuation"
-date: "2026-03-08"
+date: "2025-06-05"
 tags: ["backtesting", "walk-forward", "financial-analysis", "global-adjustment"]
 techStack: ["Python", "pandas", "matplotlib", "seaborn", "numpy"]
 sector: "utility"

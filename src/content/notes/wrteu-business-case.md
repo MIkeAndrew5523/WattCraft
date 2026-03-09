@@ -1,6 +1,6 @@
 ---
 title: "Waterloo Region Thermal Energy Utility — Conceptual Business Case"
-date: "2026-03-09"
+date: "2026-01-23"
 tags: ["district-energy", "thermal-utility", "business-case", "municipal"]
 category: "highlight"
 summary: "WRCE's conceptual business case for a regional thermal energy utility explores governance models, capital requirements, and what shared thermal infrastructure means for Ontario's energy landscape."

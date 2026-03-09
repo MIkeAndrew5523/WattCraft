@@ -1,6 +1,6 @@
 ---
 title: "06 — Cooling Tower Performance"
-date: "2026-03-07"
+date: "2024-10-17"
 tags: ["chiller-plant", "cooling-tower", "heat-rejection", "free-cooling"]
 techStack: ["Python", "pandas", "numpy", "matplotlib"]
 sector: "industrial"

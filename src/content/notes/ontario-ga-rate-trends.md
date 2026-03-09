@@ -1,6 +1,6 @@
 ---
 title: "Ontario GA Rates Keep Climbing — What It Means for Class A Timing"
-date: "2026-03-09"
+date: "2025-08-14"
 tags: ["ieso", "global-adjustment", "electricity-costs", "ontario"]
 category: "insight"
 summary: "A quick look at the upward trend in Global Adjustment rates and why the financial case for coincident peak prediction keeps getting stronger."

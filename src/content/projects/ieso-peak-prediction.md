@@ -1,6 +1,6 @@
 ---
 title: "IESO Coincident Peak Prediction"
-date: "2026-03-08"
+date: "2025-06-12"
 tags: ["backtesting", "walk-forward", "financial-analysis", "global-adjustment", "ieso", "demand-data", "machine-learning", "xgboost"]
 techStack: ["Python", "pandas", "matplotlib", "seaborn", "numpy", "requests", "openpyxl", "scikit-learn", "xgboost", "lightgbm", "shap", "joblib"]
 sector: "utility"

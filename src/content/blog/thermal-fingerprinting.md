@@ -1,6 +1,6 @@
 ---
 title: "Thermal Fingerprinting: Using Heating Degree Day Regression to Prioritize Building Envelope Retrofits Across a Municipal Housing Portfolio"
-date: "2026-03-07"
+date: "2024-11-14"
 tags: ["energy", "machine-learning", "water-wastewater", "climate"]
 summary: "A screening methodology for community housing portfolios using gas billing data and degree-day analysis to rank buildings by thermal performance and prioritize envelope retrofits."
 draft: true

@@ -1,6 +1,6 @@
 ---
 title: "01 — Data Acquisition & Exploratory Analysis"
-date: "2026-03-08"
+date: "2025-05-08"
 tags: ["ieso", "demand-data", "weather-api", "exploratory-analysis"]
 techStack: ["Python", "pandas", "matplotlib", "seaborn", "requests", "openpyxl"]
 sector: "utility"

@@ -1,6 +1,6 @@
 ---
 title: "01 — System Modeling & Temperature Bin Analysis"
-date: "2026-03-07"
+date: "2025-01-09"
 tags: ["refrigeration", "floating-head-pressure", "bin-analysis", "energy-savings"]
 techStack: ["Python", "numpy", "pandas", "matplotlib", "scipy"]
 sector: "commercial"

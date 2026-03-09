@@ -1,6 +1,6 @@
 ---
 title: "05 — Low Delta-T Syndrome"
-date: "2026-03-07"
+date: "2024-10-10"
 tags: ["chiller-plant", "low-delta-t", "fault-detection", "efficiency"]
 techStack: ["Python", "pandas", "numpy", "matplotlib"]
 sector: "industrial"

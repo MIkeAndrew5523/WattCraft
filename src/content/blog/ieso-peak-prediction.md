@@ -1,6 +1,6 @@
 ---
 title: "Predicting Ontario's Coincident Peaks: ML-Driven Forecasting for IESO Global Adjustment Optimization"
-date: "2026-03-08"
+date: "2025-06-19"
 tags: ["energy", "machine-learning", "utility", "demand-response"]
 summary: "A machine learning framework for predicting Ontario's top-5 system demand hours under the Industrial Conservation Initiative, using weather-driven demand regression and a two-stage alert system to enable targeted load curtailment for Class A electricity customers."
 draft: true

@@ -1,6 +1,6 @@
 ---
 title: "02 — Exploratory Data Analysis"
-date: "2026-03-07"
+date: "2024-09-18"
 tags: ["chiller-plant", "eda", "time-series", "rolling-average"]
 techStack: ["Python", "pandas", "matplotlib"]
 sector: "industrial"
